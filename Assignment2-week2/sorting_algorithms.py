@@ -2,7 +2,9 @@ import time
 import random
 import tracemalloc
 
-
+'''
+### Merge Sort ###
+'''
 def merge_sort(arr):
     if len(arr) <= 1:
         return arr
@@ -11,7 +13,9 @@ def merge_sort(arr):
     right = merge_sort(arr[mid:])
     return merge(left, right)
 
-
+'''
+helper for mergesort
+'''
 def merge(left, right):
     result = []
     i = 0
@@ -33,6 +37,9 @@ def merge(left, right):
     return result
 
 
+'''
+helper for quick sort
+'''
 def get_pivot(arr):
     # median of first, middle, last
     first = arr[0]
@@ -40,12 +47,14 @@ def get_pivot(arr):
     last = arr[-1]
     if first <= mid <= last or last <= mid <= first:
         return mid
-    elif mid <= first <= last or last <= first <= mid:
+    elif mid <= first <= last or last <= first   <= mid:
         return first
     else:
         return last
 
-
+'''
+### Quicksort ###
+'''
 def quick_sort(arr):
     if len(arr) <= 1:
         return arr
@@ -75,14 +84,17 @@ def run_comparison():
         tracemalloc.start()
         t0 = time.perf_counter()
         merge_sort(data[:])
+
         t1 = time.perf_counter()
         _, mem = tracemalloc.get_traced_memory()
+
         tracemalloc.stop()
         print(f"merge sort | random      | n={n} | time={t1-t0:.6f}s | mem={mem/1024:.2f}KB")
 
         tracemalloc.start()
         t0 = time.perf_counter()
         quick_sort(data[:])
+
         t1 = time.perf_counter()
         _, mem = tracemalloc.get_traced_memory()
         tracemalloc.stop()
@@ -94,6 +106,7 @@ def run_comparison():
         tracemalloc.start()
         t0 = time.perf_counter()
         merge_sort(data_sorted[:])
+
         t1 = time.perf_counter()
         _, mem = tracemalloc.get_traced_memory()
         tracemalloc.stop()
@@ -102,6 +115,7 @@ def run_comparison():
         tracemalloc.start()
         t0 = time.perf_counter()
         quick_sort(data_sorted[:])
+
         t1 = time.perf_counter()
         _, mem = tracemalloc.get_traced_memory()
         tracemalloc.stop()
@@ -113,6 +127,7 @@ def run_comparison():
         tracemalloc.start()
         t0 = time.perf_counter()
         merge_sort(data_rev[:])
+
         t1 = time.perf_counter()
         _, mem = tracemalloc.get_traced_memory()
         tracemalloc.stop()
@@ -121,6 +136,7 @@ def run_comparison():
         tracemalloc.start()
         t0 = time.perf_counter()
         quick_sort(data_rev[:])
+
         t1 = time.perf_counter()
         _, mem = tracemalloc.get_traced_memory()
         tracemalloc.stop()
@@ -131,9 +147,11 @@ def run_comparison():
 
 if __name__ == "__main__":
     sample = [38, 27, 43, 3, 9, 82, 10]
-    print("original:", sample)
-    print("merge sort:", merge_sort(sample))
-    print("quick sort:", quick_sort(sample))
+    print("original array:", sample)
+
+    print("merge sorted array:", merge_sort(sample))
+    print("quick sorted array:", quick_sort(sample))
     print()
 
+    # RUn comparison!
     run_comparison()
