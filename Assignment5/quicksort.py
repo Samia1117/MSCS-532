@@ -2,6 +2,12 @@ import random
 import time
 import sys
 
+# Python's default recursion limit is 1000.
+# The deterministic version will hit this on sorted/reverse-sorted input
+# for large n because every pivot is the worst possible choice and the
+# recursion goes n levels deep. We raise the limit so the benchmark
+# can actually demonstrate the slowdown instead of just crashing.
+sys.setrecursionlimit(20000)
 
 ##### 
 # Lomuto partition scheme
